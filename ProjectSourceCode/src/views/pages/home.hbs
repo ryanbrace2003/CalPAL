@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buff Busters Home Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f2f2f2;
+    }
+    .card-header {
+      background-color: #444;
+      color: #fff;
+    }
+    .card {
+      border: none;
+      margin-bottom: 20px;
+    }
+    .schedule-card {
+      background-color: #f2f2f2;
+      border: 1px solid #ddd;
+    }
+    .time-slot {
+      background-color: #e3d5b6;
+      padding: 5px;
+      border-radius: 3px;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+    .btn-custom {
+      background-color: #c8aa6e;
+      color: #fff;
+      border: none;
+    }
+    .btn-custom:hover {
+      background-color: #b3985e;
+    }
+    #navbar {
+      background-color: #333;
+      color: white;
+    }
+    #navbar a.navbar-brand, #navbar a.nav-link {
+      color: white;
+    }
+
+    /* New GPA and Credit Hours Styling */
+    .gpa-container, .hours-container {
+      text-align: center;
+      margin: 15px 0;
+    }
+    .gpa-value, .hours-value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .gpa-value {
+      color: #007bff; /* Highlighted color for GPA */
+    }
+    .hours-value {
+      color: #28a745; /* Highlighted color for Credit Hours */
+    }
+    .gpa-total, .hours-total {
+      font-size: 1.2rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row mt-4">
+      <!-- Holds & To-Dos Section -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">Current Semester GPA</div>
+          <div class="card-body">
+            {{#each GPAfind}}
+            <div class="gpa-container">
+              <span class="gpa-value">{{gpa}}</span><span class="gpa-total"> / 4.000</span>
+            </div>
+            <div class="hours-container">
+            </div>
+            {{/each}}
+          </div>
+        </div>
+
+        <!-- Your Classes Section -->
+        <div class="card">
+          <div class="card-header">Your Current Classes</div>
+          <div class="card-body">
+            {{#each classes}}
+            {{#if current}}
+              <p>{{class_code}} - {{name}}</p>
+            {{/if}}
+            {{/each}}
+            <strong>Past Classes</strong>
+            {{#each classes}}
+            {{#unless current}}
+              <p>{{class_code}} - {{name}}</p>
+            {{/unless}}
+            {{/each}}
+          </div>
+        </div>
+        <form action="/fileupload" method="post" enctype="multipart/form-data">
+        <input type="file" id="1" name="filetoupload">
+        <input type="submit">
+      </form>
+      </div>
+
+      <!-- Buff Portal Survey Section -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-custom text-white"></div>
+          <div class="card-body">
+            <p>Interested in classes next semester? Click on the link below to take a look!</p>
+            <p>Search for classes, add classes to your cart, drop classes and change your grade mode here. Classic registration is also still available.
+              CU’s Grade Replacement policy has been updated to benefit more students. Schedule an advising appointment to discuss or read more about retaking a course for grade replacement.
+            </p>
+            <button class="btn btn-custom" onclick="window.location.href='https://classes.colorado.edu/'">Search classes</button>
+          </div>
+        </div>
+        
+        
+        <!-- CU Boulder Email Section -->
+        <div class="card">
+          <div class="card-header">CU Boulder Email</div>
+          <div class="card-body">
+            <p>Your CU Boulder mailhome is: Exchange</p>
+            <p>Log in with {{user.email}} and your IdentiKey password.</p>
+            <button class="btn btn-custom" onclick="window.location.href='https://www.colorado.edu/resources/exchange-email'">Log In to Exchange</button>
+          </div>
+        </div>
+      </div>    
+
+<!-- Class Schedule Section -->
+<div class="col-md-4">
+  <div class="card schedule-card">
+    <div class="card-header">General Academic Dates</div>
+    <div class="card-body">
+      <div class="text-center mb-3"></div>
+      <p> These dates apply to full-semester CU Boulder Main Campus classes. For other classes and more dates visit the links below. </p>
+      <button class="btn btn-custom mb-3" onclick="window.location.href='https://www.colorado.edu/registrar/students/calendar'">Academic Calendar</button>
+      <button class="btn btn-custom mb-3" onclick="window.location.href='https://buffportal.colorado.edu/card/finals-schedule'">Finals Schedule</button>
+      <button class="btn btn-custom mb-3" onclick="window.location.href='https://buffportal.colorado.edu/card/enrollment-dates'">Enrollment Dates</button>
+    </div>
+    
+  </div>
+
+<div style="display: flex; flex-direction: column; gap: 20px;">
+  <!-- Buff Info Help -->
+  <div class="card schedule-card">
+    <div class="card-header">Contact Buff Info Help</div>
+    <div class="card-body">
+      <ul>
+        <li>Phone number: 303-492-4636</li>
+        <li>Email: buffinfo@colorado.edu</li>
+        <li>Send CU a Question: <a href="https://www.colorado.edu/engineering-advising/academiccoaching" target="_blank">Academic Coaching Services</a></li>
+      </ul>
+    </div>

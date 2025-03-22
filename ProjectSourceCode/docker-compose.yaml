@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:14
+    env_file: .env
+    expose:
+      - '5432'
+    volumes:
+      - biteBusters:/var/lib/postgresql/data
+      - ./src/init_data:/docker-entrypoint-initdb.d
+  web:
+    image: node:lts
+    user: 'root'
+    working_dir: /home/node/biteBusters/ProjectSourceCode/src
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/home/node/biteBusters/ProjectSourceCode
+    command: 'npm run testandrun'
+
+volumes:
+  biteBusters:
